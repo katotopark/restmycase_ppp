@@ -1,10 +1,10 @@
-# just-a-test
+# rest-my-case
 
-> My wonderful Nuxt.js project
+> A decentralized infrastructure for bureaucratic commodification
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ npm install
 

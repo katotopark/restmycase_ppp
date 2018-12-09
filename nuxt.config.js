@@ -1,7 +1,7 @@
 const pkg = require('./package')
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
 
   /*
   ** Headers of the page
@@ -13,9 +13,11 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+  },
+
+  router: {
+    base: '/ipns/QmbtCvTZipuwAzkaRrRu8d1Q5JJe6ewa64N2HQbab9WXBn/'
   },
 
   /*
@@ -26,16 +28,12 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-    'element-ui/lib/theme-chalk/index.css'
-  ],
+  css: ['element-ui/lib/theme-chalk/index.css'],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-    '@/plugins/element-ui'
-  ],
+  plugins: ['@/plugins/element-ui', '~/plugins/vuefire', '~/plugins/touch'],
 
   /*
   ** Nuxt.js modules

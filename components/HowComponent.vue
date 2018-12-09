@@ -14,7 +14,9 @@
         :text-strings="successMessage"/>
     </span>
     <span
-      v-if="!personSubmit">
+      v-if="!isAdmin && personSubmit && !successMessage">You have already submitted your registration.</span>
+    <span
+      v-if="isAdmin || !personSubmit">
       <el-row
         id="top-row"
         type="flex"
@@ -24,6 +26,7 @@
           <input-component
             ref="inputForm"
             :data-obj.sync="personObj"
+            :disabled="loading"
             @catch-name="onCatchName"
             @catch-surname="onCatchSurname"/>
           <el-row
@@ -32,15 +35,20 @@
             justify="center">
             <el-col :span="22">
               <button-component
+                v-if="!loading"
                 @submit="onSubmit"
                 @clear="onClear"/>
+              <dissection-component
+                v-if="loading"
+                :dimensions="dimensions"
+                wrapperstyle="text-align:center"/>
             </el-col>
           </el-row>
         </el-col>
       </el-row>
     </span>
     <el-row
-      id="bottom-row"
+      class="bottom-row"
       type="flex"
       justify="center">
       <el-col :span="24">
@@ -56,16 +64,26 @@ import InputComponent from './InputComponent.vue'
 import ButtonComponent from './ButtonComponent.vue'
 import TableComponent from './TableComponent.vue'
 import TextComponent from './TextComponent.vue'
+import DissectionComponent from './DissectionComponent.vue'
+
+import db from '../plugins/firebase'
 
 const IPFS = require('ipfs-http-client')
-const ipfs = IPFS()
+const ipfs = IPFS('ipfs.infura.io', '5001', { protocol: 'https' })
+// const ipfs = IPFS()
 
 export default {
   components: {
     InputComponent,
     ButtonComponent,
     TableComponent,
+    DissectionComponent,
     TextComponent
+  },
+  head() {
+    return {
+      title: 'RestMyCase - Log'
+    }
   },
   data() {
     return {
@@ -76,25 +94,31 @@ export default {
         surname: '',
         hash: ''
       },
-      personSubmit: false,
+      dimensions: {
+        x: 100,
+        y: 100
+      },
+      personSubmit: JSON.parse(localStorage.getItem('personSubmit')),
       newName: '',
       newSurname: '',
       newHash: '',
       successMessage: '',
-      errors: []
+      errors: [],
+      isAdmin: this.$route.query.admin !== undefined,
+      loading: false
     }
   },
-  computed: {
-    // formatName() {
-    //   let formattedName
-    //   formattedName = this.newName[0]
-    //   return formattedName
-    // }
+  firebase: {
+    attendees: {
+      source: db.ref('/registrations'),
+
+      cancelCallback(err) {
+        console.error('Error in registrations firestore:', err)
+      }
+    }
   },
-  mounted() {
-    //do something after mounting vue instance
-    console.log('mounted: ', this.$refs.inputForm.submitForm)
-  },
+
+  mounted() {},
   methods: {
     async addToIpfs(p) {
       const contextBuffer = Buffer.from(JSON.stringify(p))
@@ -129,6 +153,7 @@ export default {
       this.checkForm()
 
       if (this.errors.length == 0) {
+        this.loading = true
         this.personObj = {
           name: this.newName,
           surname: this.newSurname
@@ -136,8 +161,11 @@ export default {
 
         await this.addToIpfs(this.personObj)
         this.personObj.hash = this.newHash
-        this.attendees.push(this.personObj)
-        this.personSubmit = true
+        this.$firebaseRefs.attendees.push(this.personObj)
+        //this.personSubmit = true
+
+        this.setPersonSubmit(true)
+
         this.showSuccessMessage(
           `${this.personObj.name} ${this.personObj.surname}`,
           this.personObj.hash
@@ -158,14 +186,17 @@ export default {
           surname: this.newSurname
         }
         this.newHash = ''
-        this.personSubmit = false
+        //this.personSubmit = false
+
+        this.setPersonSubmit(false)
 
         console.log('submission: ', this.personSubmit)
       }
       console.log(this.attendees.length)
+      this.loading = false
     },
     showSuccessMessage(name, hash) {
-      this.successMessage = `Thank you for registering ${name}.
+      this.successMessage = `Thank you for registering, ${name}.
       Your registration hash is ${hash}.`
     },
     onClear() {
@@ -174,13 +205,16 @@ export default {
     checkForm(e) {
       this.errors = []
 
-      if (this.personSubmit) {
+      if (!this.isAdmin && this.personSubmit) {
         this.errors.push('You have already submitted.')
       }
       if (!this.$refs.inputForm.submitForm()) {
         this.errors.push('You need to fill all the fields.')
       }
-      // e.preventDefault()
+    },
+    setPersonSubmit(newValue) {
+      localStorage.setItem('personSubmit', JSON.stringify(newValue))
+      this.personSubmit = newValue
     }
   }
 }
@@ -190,11 +224,22 @@ export default {
   border: 2px solid black;
   padding-bottom: 20px;
 }
-#bottom-row {
+.bottom-row {
   margin-top: 40px;
   padding: 0px 0px;
+
   border: 2px solid black;
+  border-bottom: none;
+  /* border-color: black;
+  border-left: 2px;
+  border-right: 2px;
+  border-top: 2px; */
 }
+
+.el-table_1_column_1 {
+  min-width: 2em;
+}
+
 #succces-message {
   padding: 5px 10px;
   margin-bottom: 20px;

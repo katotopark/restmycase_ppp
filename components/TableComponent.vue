@@ -5,7 +5,7 @@
       label="#"
       type="index"
       align="center"
-      width="20"/>
+      width="40"/>
     <el-table-column
       v-for="elem in tableProps"
       :key="elem.key"

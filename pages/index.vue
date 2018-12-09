@@ -7,10 +7,10 @@
       justify="center">
       <el-col
         id="content"
-        :xs="20"
-        :sm="20"
-        :md="12"
-        :lg="12">
+        :xs="22"
+        :sm="22"
+        :md="10"
+        :lg="10">
         <what-component
           v-if="selection == 0"
           @handle-click="handleClick"/>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+console.log('Hello!')
 import HeaderComponent from '../components/HeaderComponent.vue'
 import HowComponent from '../components/HowComponent.vue'
 import WhatComponent from '../components/WhatComponent.vue'

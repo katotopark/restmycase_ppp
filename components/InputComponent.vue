@@ -13,6 +13,7 @@
           <el-input
             v-model="dataObj.name"
             :rows="1"
+            :disabled="disabled"
             type="textarea"
             @change="$emit('catch-name', dataObj.name)"/>
         </el-form-item>
@@ -28,6 +29,7 @@
           <el-input
             v-model="dataObj.surname"
             :rows="1"
+            :disabled="disabled"
             type="textarea"
             @change="$emit('catch-surname', dataObj.surname)"/>
         </el-form-item>
@@ -41,6 +43,11 @@ export default {
     dataObj: {
       required: true,
       type: Object
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {

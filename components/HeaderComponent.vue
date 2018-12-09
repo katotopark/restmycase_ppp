@@ -20,7 +20,7 @@
 export default {
   data() {
     return {
-      menuItems: ['Inv', 'Log']
+      menuItems: ['Info', 'Log']
     }
   },
   methods: {}

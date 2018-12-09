@@ -1,13 +1,16 @@
 <template>
   <div>
     <div class="invite-text">
-      <h3 @mouseover="changeRMC">_{{ restMyCase }}</h3>
+      <h3
+        v-touch="changeRMC"
+        @mouseover="changeRMC">_{{ restMyCase }}</h3>
       <p>You are cordially invited to a master thesis presentation about a decentralized infrastructure for bureaucratic commodification. Please <el-button @click="$emit('handle-click')">register</el-button>.</p>
     </div>
     <div
       class="address-card">
       <h3>_ADDRESS</h3>
       <div
+        v-touch="changeAddressDisplay"
         :style="addressStyle"
         @mouseover="changeAddressDisplay"
         v-text="addressStrings"/>
@@ -17,6 +20,7 @@
       <div>14/12/18</div>
       <h3>_TIME</h3>
       <div
+        v-touch="changeTime"
         :style="timeStyle"
         @mouseover="changeTime">{{ timeStrings }}</div>
     </div>
@@ -24,6 +28,11 @@
 </template>
 <script>
 export default {
+  head() {
+    return {
+      title: 'RestMyCase - Info'
+    }
+  },
   data() {
     return {
       restMyCase: '',
@@ -31,7 +40,7 @@ export default {
       initialStyle: `font-family: InputMonoCondensedLight`,
       addressStrings: '',
       robotAddress: `
-      Latitude: 53.0729046, 
+      Latitude: 53.0729046,
       Longitude: 8.84104579999996
       `,
       humanAddress: `
@@ -66,17 +75,20 @@ export default {
   },
   methods: {
     changeAddressDisplay() {
+      console.log('changeAddressDisplay')
       this.addressStrings === this.robotAddress
         ? (this.addressStrings = this.humanAddress)
         : (this.addressStrings = this.robotAddress)
     },
     changeRMC() {
+      console.log('changeRMC')
       const newString = 'Rest My Case'
       this.restMyCase === 'RMC'
         ? (this.restMyCase = newString.toUpperCase())
         : (this.restMyCase = 'RMC')
     },
     changeTime() {
+      console.log('changeTime')
       const initialTime = '19:30'
       const newTime = '7:30PM'
       this.timeStrings === initialTime
@@ -122,15 +134,17 @@ div.invite-text h3 {
 }
 div.address-card {
   border: 2px solid black;
-  height: 10rem;
+  /* height: 10rem; */
+  display: block;
+  word-wrap: break-word;
 }
 div.address-card div {
-  padding-left: 10px;
   margin-top: 5px;
-  padding-top: 20px;
-  height: 75% !important;
+  padding: 20px 10px;
+  /* height: 75% !important; */
   line-height: 30px;
   display: block;
+  min-height: 7em;
 }
 div.address-card h3,
 div.date-time h3 {

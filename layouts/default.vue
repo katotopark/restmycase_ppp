@@ -83,9 +83,10 @@ textarea {
 }
 .el-table__body tr:last-child td {
   border-bottom: 0px !important;
+  border: 0px;
 }
 
-.el-table__body tr:not(:nth-last-child(2)),
+.el-table__body tr:not(:nth-last-child(1)),
 .el-table__body td,
 .el-table__empty-block,
 .el-table--border::after,
@@ -95,6 +96,7 @@ textarea {
   color: black !important;
   border-color: none;
   border: 0px;
+  border-bottom: 2px solid black;
 }
 
 .el-table--striped .el-table__body tr.el-table__row--striped.current-row td,
@@ -132,5 +134,8 @@ el-table__body {
 .el-table__empty-text {
   color: black !important;
   font-family: InputMonoCondensedLight;
+}
+table {
+  border-color: black !important;
 }
 </style>
