@@ -16,9 +16,9 @@ module.exports = {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
-  router: {
-    base: '/ipns/QmbtCvTZipuwAzkaRrRu8d1Q5JJe6ewa64N2HQbab9WXBn/'
-  },
+  // router: {
+  //   base: '/ipns/QmbtCvTZipuwAzkaRrRu8d1Q5JJe6ewa64N2HQbab9WXBn/'
+  // },
 
   /*
   ** Customize the progress-bar color
