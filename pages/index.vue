@@ -45,11 +45,7 @@ export default {
         this.textStrings = 'this is the what page'
       } else if (this.selection == 1) {
         this.textStrings = 'this is the how page'
-      } /*else if (this.selection == 2) {
-        this.textStrings = 'this is the how page'
-      } else if (this.selection == 3) {
-        this.textStrings = 'hohoho'
-      }*/
+      }
     }
   },
   created() {
@@ -71,8 +67,5 @@ export default {
 <style>
 #container {
   margin: 50px;
-}
-#content {
-  /* border: 2px solid black; */
 }
 </style>

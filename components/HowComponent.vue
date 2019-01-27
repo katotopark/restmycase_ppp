@@ -70,7 +70,6 @@ import db from '../plugins/firebase'
 
 const IPFS = require('ipfs-http-client')
 const ipfs = IPFS('ipfs.infura.io', '5001', { protocol: 'https' })
-// const ipfs = IPFS()
 
 export default {
   components: {
@@ -162,7 +161,6 @@ export default {
         await this.addToIpfs(this.personObj)
         this.personObj.hash = this.newHash
         this.$firebaseRefs.attendees.push(this.personObj)
-        //this.personSubmit = true
 
         this.setPersonSubmit(true)
 
@@ -186,7 +184,6 @@ export default {
           surname: this.newSurname
         }
         this.newHash = ''
-        //this.personSubmit = false
 
         this.setPersonSubmit(false)
 
@@ -230,10 +227,6 @@ export default {
 
   border: 2px solid black;
   border-bottom: none;
-  /* border-color: black;
-  border-left: 2px;
-  border-right: 2px;
-  border-top: 2px; */
 }
 
 .el-table_1_column_1 {
