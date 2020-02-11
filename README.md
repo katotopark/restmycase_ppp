@@ -1,22 +1,3 @@
-# rest-my-case
+# Rest My Case
 
-> A decentralized infrastructure for bureaucratic commodification
-
-## Build Setup
-
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+> Rest My Case is a reappropriated legal term which finds its usage in the daily speech despite it being from straight out of a quintessential bureaucratic realm. In RMC, a case is a commodified, individual, bureaucratic experience. In its imperative form the phrase turns into a gentle call to revolt. This constant subversion or “playfully defiant attitude” within RMC sets the tone in which other dualities also resonate.The work’s subtitle ‘A Decentralized Infrastructure for Bureaucratic Commodification’ directly refers to the two major concerns for the work, while ‘bureaucratic commodification’ repurposes the impersonality in institutions in the form of a collectible, the latter, ‘decentralized infrastructure’ circumvents the centralized, laying the ground for a new kind of digital ownership.
